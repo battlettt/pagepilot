@@ -1,0 +1,18 @@
+{
+  "name": "contact-form",
+  "description": "Fill a contact form and submit it. The submit step is gated.",
+  "triggers": ["send a contact message", "fill the contact form"],
+  "params": {
+    "url": {"default": "https://www.example.com/contact", "description": "Contact page"},
+    "name": {"default": "Sample User", "description": "Name to enter"},
+    "message": {"default": "Hello, this is a test message.", "description": "Message to enter"}
+  },
+  "steps": [
+    {"action": "goto", "target": "{url}", "description": "Open the contact page at {url}"},
+    {"action": "fill", "target": "Name", "value": "{name}", "description": "Enter the name '{name}'"},
+    {"action": "select", "target": "Topic", "value": "General", "description": "Choose the 'General' topic"},
+    {"action": "fill", "target": "Message", "value": "{message}", "description": "Enter the message"},
+    {"action": "click", "target": "Submit", "kind": "submit", "description": "Submit the contact form"},
+    {"action": "wait_for", "target": "Thank you", "description": "Wait for the confirmation"}
+  ]
+}

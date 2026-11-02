@@ -1,0 +1,15 @@
+{
+  "name": "order-status",
+  "description": "Open your orders page, open the latest order, and read its status.",
+  "triggers": ["check my order status", "check order status", "where is my order"],
+  "params": {
+    "url": {"default": "https://shop.example.com/account/orders", "description": "Orders page of the shop you use"}
+  },
+  "steps": [
+    {"action": "goto", "target": "{url}", "description": "Open the orders page at {url}"},
+    {"action": "wait_for", "target": "Your orders", "description": "Wait for the 'Your orders' heading"},
+    {"action": "click", "target": "View order", "description": "Open the most recent order"},
+    {"action": "extract_text", "target": "Order status", "description": "Read the order status text"},
+    {"action": "screenshot", "target": "order page", "description": "Capture the order page"}
+  ]
+}

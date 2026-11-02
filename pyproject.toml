@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pagepilot"
+version = "1.0.0"
+description = "Local-only browser automation agent: plain-English task, explicit plan, human approval gates."
+readme = "README.md"
+requires-python = ">=3.9"
+# The one real runtime dependency. Run `playwright install chromium` after installing.
+dependencies = ["playwright>=1.40"]
+
+[project.scripts]
+pagepilot = "pagepilot.__main__:main"
+
+[tool.setuptools]
+packages = ["pagepilot"]

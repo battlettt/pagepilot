@@ -1,0 +1,16 @@
+{
+  "name": "site-search",
+  "description": "Search a site for a query and read the results.",
+  "triggers": ["search the site", "search a site"],
+  "params": {
+    "url": {"default": "https://www.example.com", "description": "Site to search"},
+    "query": {"default": "browser automation", "description": "Search terms"}
+  },
+  "steps": [
+    {"action": "goto", "target": "{url}", "description": "Open {url}"},
+    {"action": "fill", "target": "Search", "value": "{query}", "description": "Type '{query}' into the search box"},
+    {"action": "click", "target": "Search", "selector": "button[type=submit]", "description": "Run the search"},
+    {"action": "wait_for", "target": "Results", "description": "Wait for the results"},
+    {"action": "extract_text", "target": "Results", "description": "Read the results text"}
+  ]
+}

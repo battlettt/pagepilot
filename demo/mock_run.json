@@ -1,0 +1,168 @@
+{
+  "run_id": "demo-contact-form",
+  "started_at": "2026-11-02T09:00:00Z",
+  "finished_at": "2026-11-02T09:00:00Z",
+  "task": "recipe contact-form",
+  "source": "recipe:contact-form",
+  "final_status": "stopped_at_gate",
+  "message": "Stopped at the gate before step 5 (submit). You declined, so that step and all later steps did not run.",
+  "planned": [
+    {
+      "action": "goto",
+      "target": "https://www.example.com/contact",
+      "value": "",
+      "description": "Open the contact page at https://www.example.com/contact",
+      "selector": "",
+      "kind": "",
+      "irreversible": false,
+      "step": 1,
+      "classification": "REVERSIBLE"
+    },
+    {
+      "action": "fill",
+      "target": "Name",
+      "value": "Sample User",
+      "description": "Enter the name 'Sample User'",
+      "selector": "",
+      "kind": "",
+      "irreversible": false,
+      "step": 2,
+      "classification": "REVERSIBLE"
+    },
+    {
+      "action": "select",
+      "target": "Topic",
+      "value": "General",
+      "description": "Choose the 'General' topic",
+      "selector": "",
+      "kind": "",
+      "irreversible": false,
+      "step": 3,
+      "classification": "REVERSIBLE"
+    },
+    {
+      "action": "fill",
+      "target": "Message",
+      "value": "Hello, this is a test message.",
+      "description": "Enter the message",
+      "selector": "",
+      "kind": "",
+      "irreversible": false,
+      "step": 4,
+      "classification": "REVERSIBLE"
+    },
+    {
+      "action": "click",
+      "target": "Submit",
+      "value": "",
+      "description": "Submit the contact form",
+      "selector": "",
+      "kind": "submit",
+      "irreversible": false,
+      "step": 5,
+      "classification": "IRREVERSIBLE"
+    },
+    {
+      "action": "wait_for",
+      "target": "Thank you",
+      "value": "",
+      "description": "Wait for the confirmation",
+      "selector": "",
+      "kind": "",
+      "irreversible": false,
+      "step": 6,
+      "classification": "REVERSIBLE"
+    }
+  ],
+  "outcomes": [
+    {
+      "step": 1,
+      "action": "goto",
+      "target": "https://www.example.com/contact",
+      "value": "",
+      "description": "Open the contact page at https://www.example.com/contact",
+      "classification": "REVERSIBLE",
+      "status": "success",
+      "strategy": null,
+      "retries": 0,
+      "screenshot": "step-01.png",
+      "text": null,
+      "error": null
+    },
+    {
+      "step": 2,
+      "action": "fill",
+      "target": "Name",
+      "value": "Sample User",
+      "description": "Enter the name 'Sample User'",
+      "classification": "REVERSIBLE",
+      "status": "success",
+      "strategy": "role",
+      "retries": 0,
+      "screenshot": "step-02.png",
+      "text": null,
+      "error": null
+    },
+    {
+      "step": 3,
+      "action": "select",
+      "target": "Topic",
+      "value": "General",
+      "description": "Choose the 'General' topic",
+      "classification": "REVERSIBLE",
+      "status": "success",
+      "strategy": "role",
+      "retries": 0,
+      "screenshot": "step-03.png",
+      "text": null,
+      "error": null
+    },
+    {
+      "step": 4,
+      "action": "fill",
+      "target": "Message",
+      "value": "Hello, this is a test message.",
+      "description": "Enter the message",
+      "classification": "REVERSIBLE",
+      "status": "success",
+      "strategy": "attribute",
+      "retries": 1,
+      "screenshot": "step-04.png",
+      "text": null,
+      "error": null
+    },
+    {
+      "step": 5,
+      "action": "click",
+      "target": "Submit",
+      "value": "",
+      "description": "Submit the contact form",
+      "classification": "IRREVERSIBLE",
+      "status": "stopped_at_gate",
+      "strategy": null,
+      "retries": 0,
+      "screenshot": null,
+      "text": null,
+      "error": "You declined this irreversible step"
+    },
+    {
+      "step": 6,
+      "action": "wait_for",
+      "target": "Thank you",
+      "value": "",
+      "description": "Wait for the confirmation",
+      "classification": "REVERSIBLE",
+      "status": "skipped",
+      "strategy": null,
+      "retries": 0,
+      "screenshot": null,
+      "text": null,
+      "error": null
+    }
+  ],
+  "changes": [
+    "Entered 'Sample User' into 'Name' (in the page form only)",
+    "Entered 'General' into 'Topic' (in the page form only)",
+    "Entered 'Hello, this is a test message.' into 'Message' (in the page form only)"
+  ]
+}

@@ -1,24 +1,40 @@
-# CLAUDE.md — PagePilot
+# PagePilot
 
-Local browser automation agent: plain-English tasks become explicit plans, with human gates and an audit trail.
+Local-only browser automation CLI. Plain-English task -> explicit plan ->
+printed and confirmed -> executed with Playwright behind human gates.
 
-## What it is
-- Task language: a task in plain English becomes an explicit step plan shown before anything runs.
-- Executor: resilient selectors (multiple strategies, self-healing), waits, retries with backoff.
-- Human gates: stop and ask before sign-in, payment, submit, send, delete, or anything irreversible. Dry-run mode plans without acting.
-- Audit trail: step log + screenshot per step + final report of what changed.
-- Recipes: saved reusable tasks with parameters.
-- Safety: credentials are never stored in the agent; it uses the browser's own saved logins or the user's session. Respect site rules, no CAPTCHA solving as a feature, rate-limit.
+## Layout
 
-## Run
-- `python3 -m pagepilot "check my order status"` (plan shown first, gates enforced).
-- `python3 -m pagepilot --dry-run "..."` plans without acting.
+- `pagepilot/planner.py`: task string or recipe -> `Plan` of `Step`s. Pure.
+- `pagepilot/gates.py`: REVERSIBLE / IRREVERSIBLE classification. Pure.
+- `pagepilot/locators.py`: ordered selector strategies (role, css, text,
+  label, attribute). Pure; works on any page-like object. Not named
+  `selectors.py` because that would shadow the stdlib module asyncio uses.
+- `pagepilot/recipes.py`: load JSON recipes, fill `{param}` templates. Pure.
+- `pagepilot/audit.py`: log.json, report.md, screenshot paths. Pure.
+- `pagepilot/executor.py`: runs a plan; imports Playwright only in
+  `open_browser()`.
+- `pagepilot/fakepage.py`: fake page for tests and the demo mock run.
+- `pagepilot/__main__.py`: CLI. `main(argv, input_fn, out, run_fn)` is
+  injectable for tests.
+- `recipes/*.json`, `demo/`, `scripts/build_demo.py`, `tests/`.
 
-## Test
-- `python3 tests/run_tests.py` (planner on mock pages, selector fallback, gate enforcement, dry-run, audit logs).
-- Gate tests must prove the agent stops before irreversible steps.
+## Commands
 
-## Conventions
-- Planner is separate from the executor, so plans are testable without a browser.
-- No secrets, tokens, or passwords in the repo.
-- Playwright for browser control; `playwright install chromium` if browsers are missing.
+- Tests: `python3 tests/run_tests.py` (plain asserts, no pytest).
+- Dry run: `python3 -m pagepilot --dry-run "check my order status"`
+- Demo: `python3 scripts/build_demo.py` after any change to planner,
+  gates, executor, audit, or the contact-form recipe, or the drift test fails.
+
+## Rules that must not regress
+
+- Every browser action appears in the printed plan before it runs.
+- Irreversible steps (signin, payment, submit, send, delete, marked) always
+  ask "yes" on the terminal. `--yes` never skips them.
+- `--dry-run` never imports the executor or Playwright and writes nothing.
+- Unknown tasks give an empty clarify plan, never a guessed action list.
+- Never fill passwords, card numbers, or other secrets. Never solve CAPTCHAs.
+- Irreversible actions are never retried once the action was attempted.
+- `runs/` is runtime data and gitignored. No personal data in recipes.
+- No em dashes in docs or output text.
+- Only third-party dependency: Playwright. Standard library otherwise.
